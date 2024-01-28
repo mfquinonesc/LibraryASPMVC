@@ -13,9 +13,13 @@
                     <p class="is-size-4">
                         Esta página presenta el catálogo completo de libros. Pueden gestionar  los autores y los títulos.
                     </p>
-                    <div class="mt-6">
-                        <a class="button is-link mb-2" asp-controller="Author" asp-action="New">Autores</a>
-                        <a class="button is-link mb-2" asp-controller="Book" asp-action="New">Libros</a>
+                    <div class="mt-6 field is-grouped">
+                        <div class="control">
+                            <a class="button is-link mb-2" asp-controller="Book" asp-action="New">Libros</a>
+                        </div>
+                        <div class="control">
+                            <a class="button is-link mb-2" asp-controller="Author" asp-action="New">Autores</a>
+                        </div>
                     </div>
                 </div>
 
@@ -29,8 +33,8 @@
                                 <th class="has-text-centered">Índice</th>
                                 <th class="has-text-centered">Autor</th>
                                 <th class="has-text-centered">Nombre del libro</th>
-                                <th class="has-text-centered">Open</th>
-                                <th class="has-text-centered">Delete</th>
+                               @*  <th class="has-text-centered">Open</th>
+                                <th class="has-text-centered">Delete</th> *@
                             </tr>
                         </thead>
                         <tbody>
@@ -41,7 +45,7 @@
                                     <td class="has-text-centered">@index</td>
                                     <td class="has-text-centered">@info.Name</td>
                                     <td class="has-text-centered">@info.Title</td>
-                                    <td class="has-text-centered">
+                                   @*  <td class="has-text-centered">
                                         <a asp-controller="Book" asp-action="New">
                                             <i class="fa-solid fa-pen"></i>
                                         </a>
@@ -50,7 +54,7 @@
                                         <a asp-controller="Home" asp-action="Delete">
                                             <i class="fa-solid fa-trash"></i>
                                         </a>
-                                    </td>
+                                    </td> *@
                                 </tr>
                             }
                         </tbody>

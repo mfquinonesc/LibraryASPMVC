@@ -17,11 +17,16 @@
                         <div class="control">
                             <input name="Name" class="input" type="text">
                         </div>
-                        <p class="help is-danger">Ingrese un nombre</p>
+                        @* <p class="help is-danger">Ingrese un nombre</p> *@
                     </div>
                     <div class="field">
-                        <div class="control">
-                            <button type="submit" class="button is-link">Crear</button>
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button type="submit" class="button is-link">Crear</button>
+                            </div>
+                            <div class="control">
+                                <a asp-action="Index" asp-controller="Home" type="submit" class="button">Cancelar</a>
+                            </div>
                         </div>
                     </div>
                 </form>
