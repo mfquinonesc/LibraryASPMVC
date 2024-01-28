@@ -1,4 +1,5 @@
 ﻿using LibraryASPMVC.Models;
+using LibraryASPMVC.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,16 +7,17 @@ namespace LibraryASPMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly BookAuthorInfoService _service;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(BookAuthorInfoService service)
         {
-            _logger = logger;
+            this._service = service;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var result = await this._service.GetAllBooksAuthorInfo();
+            return View(result);
         }
 
         public IActionResult Privacy()
@@ -27,6 +29,12 @@ namespace LibraryASPMVC.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }            
+        
+        public IActionResult Delete()
+        {
+            return NotFound();
         }
+
     }
 }

@@ -1,8 +1,62 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    int index = 0;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="hero is-fullheight-with-header">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <div class="columns is-8 is-variable is-multiline">
+
+                <div class="column is-one-thirds has-text-left">
+                    <h1 class="subtitle is-1 is-size-3">Gestión de biblioteca</h1>
+                    <p class="is-size-4">
+                        Esta página presenta el catálogo completo de libros. Pueden gestionar  los autores y los títulos.
+                    </p>
+                    <div class="mt-6">
+                        <a class="button is-link mb-2" asp-controller="Author" asp-action="New">Autores</a>
+                        <a class="button is-link mb-2" asp-controller="Book" asp-action="New">Libros</a>
+                    </div>
+                </div>
+
+                <div class="column is-two-thirds has-text-left">
+
+                    <h2 class="subtitle is-1 is-size-3"> Tabla General </h2>
+
+                    <table class="table is-fullwidth is-hoverable">
+                        <thead>
+                            <tr>
+                                <th class="has-text-centered">Índice</th>
+                                <th class="has-text-centered">Autor</th>
+                                <th class="has-text-centered">Nombre del libro</th>
+                                <th class="has-text-centered">Open</th>
+                                <th class="has-text-centered">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var info in Model)
+                            {
+                                index++;
+                                <tr>
+                                    <td class="has-text-centered">@index</td>
+                                    <td class="has-text-centered">@info.Name</td>
+                                    <td class="has-text-centered">@info.Title</td>
+                                    <td class="has-text-centered">
+                                        <a asp-controller="Book" asp-action="New">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
+                                    </td>
+                                    <td class="has-text-centered">
+                                        <a asp-controller="Home" asp-action="Delete">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
