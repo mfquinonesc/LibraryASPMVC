@@ -1,8 +1,9 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@ 
-@model List<LibraryASPMVC.Models.Author>
+*@
+@model LibraryASPMVC.Models.AuthorBookModels
 @{
+    bool isUpdate = ViewData["isUpdate"] != null ? (bool)ViewData["isUpdate"] : false;
     ViewData["Title"] = "Autores";
 }
 <section class="hero is-fullheight-with-header">
@@ -10,30 +11,57 @@
         <div class="container has-text-centered">
             <div class="columns is-8 is-variable is-multiline">
 
-                <form id="authorForm" class="column is-one-thirds has-text-left" method="post" action="Create">
-                    <h1 class="subtitle is-1 is-size-3">Crear Autor</h1>
+                @if (isUpdate)
+                {
+                    <form id="authorForm" class="column is-one-thirds has-text-left" action="@Url.Action("Update","Author",new {id = Model.Author.AuthorId})">
+                        <h1 class="subtitle is-1 is-size-3">Crear Autor</h1>
 
-                    <div class="field">
-                        <label class="label">Nombre</label>
-                        <div class="control">
-                            <input id="name" name="Name" class="input" type="text">
-                        </div>
-                        <span id="nameError" class="help is-danger"></span>
-                    </div>
-                    <div class="field">
-                        <div class="field is-grouped">
+                        <div class="field">
+                            <label class="label">Nombre</label>
                             <div class="control">
-                                <button type="submit" class="button is-link">Crear</button>
+                                <input id="name" name="Name" class="input" type="text" value="@Model.Author.Name">
                             </div>
-                            <div class="control">
-                                <a asp-action="Index" asp-controller="Home" type="submit" class="button">Cancelar</a>
+                            <span id="nameError" class="help is-danger"></span>
+                        </div>
+                        <div class="field">
+                            <div class="field is-grouped">
+                                <div class="control">
+                                    <button type="submit" class="button is-link">Actualizar</button>
+                                </div>
+                                <div class="control">
+                                    <a asp-action="Index" asp-controller="Home" type="submit" class="button">Cancelar</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                }
+                else
+                {
+                    <form id="authorForm" class="column is-one-thirds has-text-left" action="Create" method="post">
+                        <h1 class="subtitle is-1 is-size-3">Crear Autor</h1>
+
+                        <div class="field">
+                            <label class="label">Nombre</label>
+                            <div class="control">
+                                <input id="name" name="Name" class="input" type="text">
+                            </div>
+                            <span id="nameError" class="help is-danger"></span>
+                        </div>
+                        <div class="field">
+                            <div class="field is-grouped">
+                                <div class="control">
+                                    <button type="submit" class="button is-link">Crear</button>
+                                </div>
+                                <div class="control">
+                                    <a asp-action="Index" asp-controller="Home" type="submit" class="button">Cancelar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                }
 
                 <div class="column is-two-thirds has-text-left">
-                    <partial name="_authorsTable" model="@Model"/>
+                    <partial name="_authorsTable" model="@Model.Authors" />
                 </div>
             </div>
         </div>

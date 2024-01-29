@@ -12,7 +12,8 @@
         <tr>
             <th class="has-text-centered">Índice</th>
             <th class="has-text-centered">Autor</th> 
-            <th class="has-text-centered">Delete</th>
+            <th class="has-text-centered">Actualizar</th>
+            <th class="has-text-centered">Eliminar</th>
         </tr>
     </thead>
     <tbody>
@@ -21,7 +22,12 @@
             index++;
             <tr>
                 <td class="has-text-centered">@index</td>
-                <td class="has-text-centered">@author.Name</td> 
+                <td class="has-text-centered">@author.Name</td>
+                <td class="has-text-centered">
+                    <a asp-controller="Author" asp-action="New" asp-route-id="@author.AuthorId">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </a>
+                </td>
                 <td class="has-text-centered">
                     <a asp-controller="Author" asp-action="Delete" asp-route-id="@author.AuthorId">
                         <i class="fa-solid fa-trash"></i>
