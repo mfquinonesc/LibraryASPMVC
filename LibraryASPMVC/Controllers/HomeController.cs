@@ -18,6 +18,7 @@ namespace LibraryASPMVC.Controllers
         //of all the books with their authors 
         public async Task<IActionResult> Index()
         {
+            ViewData["isEditable"] = false;
             var result = await this._service.GetAllBooksAuthorInfo();
             return View(result);
         }      

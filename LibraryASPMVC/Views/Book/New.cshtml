@@ -1,7 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model List<LibraryASPMVC.Models.Author>;
+@model LibraryASPMVC.Models.AuthorBookModels;
 @{
     ViewData["Title"] = "Libros";
 }
@@ -26,7 +26,7 @@
                             <div class="select">
                                 <select id="author" name="AuthorId">
                                     <option value="0">Seleccione un autor</option>
-                                    @foreach (var author in Model)
+                                    @foreach (var author in Model.Authors)
                                     {
                                         <option value="@author.AuthorId">@author.Name</option>
                                     }
@@ -46,8 +46,9 @@
                         </div>
                     </div>
                 </form>
+                <div class="column is-two-thirds has-text-left">
 
-                <div class="column is-two-thirds has-text-left">                   
+                    <partial name="_booksTable" model="@Model.BookAuthorInfos" />
                 </div>
             </div>
         </div>

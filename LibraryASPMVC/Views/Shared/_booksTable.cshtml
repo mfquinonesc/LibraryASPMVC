@@ -3,39 +3,66 @@
 *@
 @model List<LibraryASPMVC.Models.BookAuthorInfo>;
 @{
+    bool isEditable = ViewData["isEditable"] != null ? (bool)ViewData["isEditable"] : false;
     int index = 0;
 }
 <h2 class="subtitle is-1 is-size-3"> Tabla General </h2>
 
-<table class="table is-fullwidth is-hoverable">
-    <thead>
-        <tr>
-            <th class="has-text-centered">Índice</th>
-            <th class="has-text-centered">Autor</th>
-            <th class="has-text-centered">Nombre del libro</th>
-            @*  <th class="has-text-centered">Open</th> *@
-            <th class="has-text-centered">Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var info in Model)
-        {
-            index++;
+@if (isEditable)
+{
+    <table class="table is-fullwidth is-hoverable">
+        <thead>
             <tr>
-                <td class="has-text-centered">@index</td>
-                <td class="has-text-centered">@info.Name</td>
-                <td class="has-text-centered">@info.Title</td>
-                @* <td class="has-text-centered">
-                    <a asp-controller="Book" asp-action="New">
-                        <i class="fa-solid fa-pen"></i>
-                    </a>
-                </td> *@
-                <td class="has-text-centered">
-                    <a asp-controller="Book" asp-action="Delete"  asp-route-id="@info.Id">
-                        <i class="fa-solid fa-trash"></i>
-                    </a>
-                </td>
+                <th class="has-text-centered">Índice</th>
+                <th class="has-text-centered">Autor</th>
+                <th class="has-text-centered">Nombre del libro</th>
+                @*  <th class="has-text-centered">Open</th> *@
+                <th class="has-text-centered">Delete</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var info in Model)
+            {
+                index++;
+                <tr>
+                    <td class="has-text-centered">@index</td>
+                    <td class="has-text-centered">@info.Name</td>
+                    <td class="has-text-centered">@info.Title</td>
+                    @* <td class="has-text-centered">
+                        <a asp-controller="Book" asp-action="New">
+                        <i class="fa-solid fa-pen"></i>
+                        </a>
+                         </td> *@
+                    <td class="has-text-centered">
+                        <a asp-controller="Book" asp-action="Delete" asp-route-id="@info.Id">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <table class="table is-fullwidth is-hoverable">
+        <thead>
+            <tr>
+                <th class="has-text-centered">Índice</th>
+                <th class="has-text-centered">Autor</th>
+                <th class="has-text-centered">Nombre del libro</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var info in Model)
+            {
+                index++;
+                <tr>
+                    <td class="has-text-centered">@index</td>
+                    <td class="has-text-centered">@info.Name</td>
+                    <td class="has-text-centered">@info.Title</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

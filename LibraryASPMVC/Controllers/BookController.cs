@@ -9,11 +9,14 @@ namespace LibraryASPMVC.Controllers
 
         private readonly BookService _service;
         private readonly AuthorService _authorService;
+        private readonly BookAuthorInfoService _bookAuthorInfoService;
+        
 
-        public BookController(BookService service, AuthorService authorService)
+        public BookController(BookService service, AuthorService authorService,BookAuthorInfoService bookAuthorInfoService)
         {
             _service = service;
             _authorService = authorService;
+            _bookAuthorInfoService = bookAuthorInfoService;
         }
 
        
@@ -21,24 +24,29 @@ namespace LibraryASPMVC.Controllers
         //and send the list of all authors
         public async Task<IActionResult> New()
         {
-            var result = await _authorService.GetAllAuthors();
-            return View(result);
+            var resultInfos = await _bookAuthorInfoService.GetAllBooksAuthorInfo();
+            var resultAuhtors = await _authorService.GetAllAuthors();
+            AuthorBookModels models = new AuthorBookModels();
+            models.Authors = resultAuhtors;
+            models.BookAuthorInfos = resultInfos;
+            ViewData["isEditable"] = true;
+            return View(models);
         }
 
         
-        //Create new Book and return to Home
+        //Create new Book and return to New Book
         public async Task<IActionResult> Create(Book book)
         {
             int id = book.AuthorId ?? 0;
             await this._service.CreateBook(book, id);
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("New", "Book");
         }
 
-        //Delete book by Id and return to Home
+        //Delete book by Id and return to New Book
         public async Task<IActionResult> Delete(int id)
         {
             await _service.DeleteBookById(id);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("New", "Book");
         }
 
     }
