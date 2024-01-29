@@ -9,27 +9,29 @@
         <div class="container has-text-centered">
             <div class="columns is-8 is-variable is-multiline">
 
-                <form class="column is-one-thirds has-text-left" method="post" action="Create">
+                <form id="bookForm" class="column is-one-thirds has-text-left" method="post" action="Create">
                     <h1 class="subtitle is-1 is-size-3">Crear Libro</h1>
 
                     <div class="field">
                         <label class="label">Título</label>
                         <div class="control">
-                            <input name="Title" class="input" type="text">
+                            <input id="title" name="Title" class="input" type="text">
                         </div>
-                        @* <p class="help is-danger">Ingrese un título</p> *@
+                        <span id="titleError" class="help is-danger"></span>
                     </div>
                     <div class="field">
                         <div class="control">
                             <div class="select">
-                                <select name="AuthorId">
-                                    @foreach(var author in Model)
+                                <select id="author" name="AuthorId">
+                                    <option value="0">Seleccione un autor</option>
+                                    @foreach (var author in Model)
                                     {
                                         <option value="@author.AuthorId">@author.Name</option>
-                                    }   
+                                    }
                                 </select>
                             </div>
                         </div>
+                        <span id="authorError" class="help is-danger"></span>
                     </div>
                     <div class="field">
                         <div class="field is-grouped">
@@ -49,3 +51,40 @@
         </div>
     </div>
 </section>
+
+@section Scripts {
+    <script>
+
+        let isTouched = false;
+        const title = document.getElementById('title');
+        const titleError = document.getElementById('titleError');
+        const author = document.getElementById('author');
+        const authorError = document.getElementById('authorError');
+
+        title.addEventListener('input', () => {
+            titleError.innerText = title.value.length < 1 && isTouched ? 'Debe ingresar un título válido!' : '';
+        });
+
+        title.addEventListener('blur', () => {
+            isTouched = true;           
+        });
+
+        author.addEventListener('change', () => {
+            authorError.innerText = author.selectedIndex == 0 ? 'Debe seleccionar algún autor!' : '';
+        });
+
+        document.getElementById('bookForm').addEventListener('submit', function (event) {
+            if (author.selectedIndex == 0) {
+                event.preventDefault();
+                alert('Debe seleccionar algún autor!');
+            }
+            else{
+                if (title.value.length < 1) {
+                    event.preventDefault();
+                    alert('Debe ingresar un título válido!');
+                }
+            }           
+        });
+
+    </script>
+}

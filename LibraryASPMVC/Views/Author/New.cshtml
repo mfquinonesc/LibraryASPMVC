@@ -9,15 +9,15 @@
         <div class="container has-text-centered">
             <div class="columns is-8 is-variable is-multiline">
 
-                <form class="column is-one-thirds has-text-left" method="post" action="Create">
+                <form id="authorForm" class="column is-one-thirds has-text-left" method="post" action="Create">
                     <h1 class="subtitle is-1 is-size-3">Crear Autor</h1>
 
                     <div class="field">
                         <label class="label">Nombre</label>
                         <div class="control">
-                            <input name="Name" class="input" type="text">
+                            <input id="name" name="Name" class="input" type="text">
                         </div>
-                        @* <p class="help is-danger">Ingrese un nombre</p> *@
+                        <span id="nameError" class="help is-danger"></span>
                     </div>
                     <div class="field">
                         <div class="field is-grouped">
@@ -37,3 +37,26 @@
         </div>
     </div>
 </section>
+
+@section Scripts {
+    <script>
+        let isTouched = false;
+        const name = document.getElementById('name');
+        const nameError = document.getElementById('nameError');
+
+        name.addEventListener('input', () => {
+            nameError.innerText = name.value.length < 1 && isTouched ? 'Debe ingresar un nombre válido!' : '';
+        });
+
+        name.addEventListener('blur', () => {
+            isTouched = true;           
+        });
+
+        document.getElementById('authorForm').addEventListener('submit', function (event) {
+            if (name.value.length < 1) {
+                event.preventDefault();
+                alert('Debe ingresar un nombre válido!');
+            }
+        });
+    </script>
+}
