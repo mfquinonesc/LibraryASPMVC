@@ -1,8 +1,9 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+*@ 
+@model List<LibraryASPMVC.Models.Author>
 @{
-
+    ViewData["Title"] = "Autores";
 }
 <section class="hero is-fullheight-with-header">
     <div class="hero-body">
@@ -32,6 +33,7 @@
                 </form>
 
                 <div class="column is-two-thirds has-text-left">
+                    <partial name="_authorsTable" model="@Model"/>
                 </div>
             </div>
         </div>
@@ -49,7 +51,7 @@
         });
 
         name.addEventListener('blur', () => {
-            isTouched = true;           
+            isTouched = true;
         });
 
         document.getElementById('authorForm').addEventListener('submit', function (event) {

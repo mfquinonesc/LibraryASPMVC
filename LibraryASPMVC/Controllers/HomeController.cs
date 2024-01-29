@@ -13,16 +13,15 @@ namespace LibraryASPMVC.Controllers
         {
             this._service = service;
         }
-
+        
+        //Display home page and send the list
+        //of all the books with their authors 
         public async Task<IActionResult> Index()
         {
             var result = await this._service.GetAllBooksAuthorInfo();
             return View(result);
-        }       
-        public IActionResult Delete()
-        {
-            return NotFound();
-        }
+        }      
+        
 
     }
 }

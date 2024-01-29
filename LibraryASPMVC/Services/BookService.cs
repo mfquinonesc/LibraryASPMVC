@@ -8,16 +8,19 @@ namespace LibraryASPMVC.Services
     {
         public BookService(DB_LibraryContext context) : base(context) { }
 
+        //Get all the books 
         public async Task<List<Book>> GetAllBooks()
         {
             return await _context.Books.ToListAsync();
         }
 
+        //Get book by Id
         public async Task<Book?> GetBookById(int id)
         {
             return await _context.Books.FindAsync(id);
         }
 
+        //Delete book by Id
         public async Task<Book?> DeleteBookById(int id)
         {
             var fbook = await _context.Books.FindAsync(id);
@@ -29,6 +32,7 @@ namespace LibraryASPMVC.Services
             return fbook;
         }
 
+        //Update book by Id
         public async Task<Book?> UpdateBookById(int id, Book book)
         {
             var fbook = await _context.Books.FindAsync(id);
@@ -43,6 +47,7 @@ namespace LibraryASPMVC.Services
             return fbook;
         }
 
+        //Create a new book
         public async Task<Book> CreateBook(Book book)
         {
             await _context.Books.AddAsync(book);
@@ -50,6 +55,7 @@ namespace LibraryASPMVC.Services
             return book;
         }
 
+        //Create a new book with the author Id
         public async Task<Book> CreateBook(Book book, int authorId)
         {
             var author = await _context.Authors.FindAsync(authorId);
