@@ -47,7 +47,7 @@
         const nameError = document.getElementById('nameError');
 
         name.addEventListener('input', () => {
-            nameError.innerText = name.value.length < 1 && isTouched ? 'Debe ingresar un nombre válido!' : '';
+            nameError.innerText = name.value.trim().length < 1 && isTouched ? 'Debe ingresar un nombre válido!' : '';
         });
 
         name.addEventListener('blur', () => {
@@ -55,7 +55,7 @@
         });
 
         document.getElementById('authorForm').addEventListener('submit', function (event) {
-            if (name.value.length < 1) {
+            if (name.value.trim().length < 1) {
                 event.preventDefault();
                 alert('Debe ingresar un nombre válido!');
             }

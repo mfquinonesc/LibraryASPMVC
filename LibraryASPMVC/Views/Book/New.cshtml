@@ -21,6 +21,7 @@
                         <span id="titleError" class="help is-danger"></span>
                     </div>
                     <div class="field">
+                        <label class="label">Autor</label>
                         <div class="control">
                             <div class="select">
                                 <select id="author" name="AuthorId">
@@ -63,7 +64,7 @@
         const authorError = document.getElementById('authorError');
 
         title.addEventListener('input', () => {
-            titleError.innerText = title.value.length < 1 && isTouched ? 'Debe ingresar un título válido!' : '';
+            titleError.innerText = title.value.trim().length < 1 && isTouched ? 'Debe ingresar un título válido!' : '';
         });
 
         title.addEventListener('blur', () => {
@@ -80,7 +81,7 @@
                 alert('Debe seleccionar algún autor!');
             }
             else{
-                if (title.value.length < 1) {
+                if (title.value.trim().length < 1) {
                     event.preventDefault();
                     alert('Debe ingresar un título válido!');
                 }

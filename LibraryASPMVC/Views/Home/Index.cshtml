@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Home";    
+    ViewData["Title"] = "Home";
 }
 @model List<LibraryASPMVC.Models.BookAuthorInfo>;
 
@@ -11,21 +11,35 @@
                 <div class="column is-one-thirds has-text-left">
                     <h1 class="subtitle is-1 is-size-3">Gestión de biblioteca</h1>
                     <p class="is-size-4">
-                        Esta página presenta el catálogo completo de libros. Pueden gestionar  los autores y los títulos.
+                        Esta página presenta el catálogo completo de libros. Pueden gestionar los autores y los títulos.
                     </p>
                     <div class="mt-6 field is-grouped">
                         <div class="control">
-                            <a class="button is-link mb-2" asp-controller="Book" asp-action="New">Libros</a>
+                            <a class="button is-link mb-2 navbar-item" asp-controller="Book" asp-action="New">
+                                <span class="icon">
+                                    <i class="fa-solid fa-book"></i>
+                                </span>
+                                <span>
+                                    Libros
+                                </span>
+                            </a>
                         </div>
                         <div class="control">
-                            <a class="button is-link mb-2" asp-controller="Author" asp-action="New">Autores</a>
+                            <a class="button is-link mb-2" asp-controller="Author" asp-action="New">
+                                <span class="icon">
+                                    <i class="fa-solid fa-feather-pointed"></i>
+                                </span>
+                                <span>
+                                    Autores
+                                </span>
+                            </a>
                         </div>
                     </div>
                 </div>
 
                 <div class="column is-two-thirds has-text-left">
                     <partial name="_booksTable" model="@Model" />
-                 </div>
+                </div>
             </div>
         </div>
     </div>
