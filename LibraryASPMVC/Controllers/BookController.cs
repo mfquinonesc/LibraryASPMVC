@@ -61,6 +61,7 @@ namespace LibraryASPMVC.Controllers
             return RedirectToAction("New", "Book");
         }
 
+        //Update book by Id and return to New Book
         public async Task<IActionResult> Update(int id, Book book)
         {
             await _service.UpdateBookById(id, book);
