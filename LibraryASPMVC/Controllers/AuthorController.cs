@@ -21,19 +21,19 @@ namespace LibraryASPMVC.Controllers
             models.Authors = resultTable;
             if (id != null)
             {
-                int _id = id ?? 0;               
-                var resultAuhtor = await _service.GetAuthorById(_id);               
-                models.Author = resultAuhtor ?? new Author();               
-                ViewData["isUpdate"] = true;                         
+                int _id = id ?? 0;
+                var resultAuhtor = await _service.GetAuthorById(_id);
+                models.Author = resultAuhtor ?? new Author();
+                ViewData["isUpdate"] = true;
             }
             else
             {
                 models.Author = new Author();
-                ViewData["isUpdate"] = false;               
+                ViewData["isUpdate"] = false;
             }
             return View(models);
         }
-             
+
         //Create new Author
         public async Task<IActionResult> Create(Author author)
         {
@@ -44,14 +44,19 @@ namespace LibraryASPMVC.Controllers
         //Delete author by Id
         public async Task<IActionResult> Delete(int id)
         {
-            await _service.DeleteAuthorById(id);            
+            try
+            {
+                await _service.DeleteAuthorById(id);                
+            }
+            catch(Exception e){               
+            }
             return RedirectToAction("New");
         }
 
         //Update author by Id
-        public async Task<IActionResult> Update(Author author,int id)
+        public async Task<IActionResult> Update(Author author, int id)
         {
-            await this._service.UpdateAuthorById(id,author);           
+            await this._service.UpdateAuthorById(id, author);
             return RedirectToAction("New");
         }
     }
