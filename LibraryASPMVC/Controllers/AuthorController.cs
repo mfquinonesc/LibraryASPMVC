@@ -16,25 +16,22 @@ namespace LibraryASPMVC.Controllers
         //Display new author view and send the list of all authors
         public async Task<IActionResult> New(int? id)
         {
-            if(id != null)
+            var resultTable = await _service.GetAllAuthors();
+            AuthorBookModels models = new AuthorBookModels();
+            models.Authors = resultTable;
+            if (id != null)
             {
-                int _id = id ?? 0;
-                var resultTable = await _service.GetAllAuthors();
-                var resultAuhtor = await _service.GetAuthorById(_id);
-                AuthorBookModels models = new AuthorBookModels();
-                models.Author = resultAuhtor ?? new Author();
-                models.Authors = resultTable;
-                ViewData["isUpdate"] = true;
-                return View(models);               
+                int _id = id ?? 0;               
+                var resultAuhtor = await _service.GetAuthorById(_id);               
+                models.Author = resultAuhtor ?? new Author();               
+                ViewData["isUpdate"] = true;                         
             }
             else
             {
-                var result = await _service.GetAllAuthors();
-                AuthorBookModels models = new AuthorBookModels();
-                models.Authors = result;
-                ViewData["isUpdate"] = false;
-                return View(models);
+                models.Author = new Author();
+                ViewData["isUpdate"] = false;               
             }
+            return View(models);
         }
              
         //Create new Author
@@ -54,8 +51,7 @@ namespace LibraryASPMVC.Controllers
         //Update author by Id
         public async Task<IActionResult> Update(Author author,int id)
         {
-            await this._service.UpdateAuthorById(id,author);
-            ViewData["isUpdate"] = false;
+            await this._service.UpdateAuthorById(id,author);           
             return RedirectToAction("New");
         }
     }

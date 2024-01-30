@@ -22,7 +22,7 @@ namespace LibraryASPMVC.Controllers
        
         //Diaplay the Create a new Author view 
         //and send the list of all authors
-        public async Task<IActionResult> New()
+        public async Task<IActionResult> New (int? id)
         {
             var resultInfos = await _bookAuthorInfoService.GetAllBooksAuthorInfo();
             var resultAuhtors = await _authorService.GetAllAuthors();
@@ -30,6 +30,18 @@ namespace LibraryASPMVC.Controllers
             models.Authors = resultAuhtors;
             models.BookAuthorInfos = resultInfos;
             ViewData["isEditable"] = true;
+
+            if (id != null)
+            {
+                int _id = id ?? 0;
+                ViewData["isUpdate"] = true;
+                var resultBook = await _service.GetBookById(_id);
+                models.Book = resultBook ?? new Book();               
+            }
+            else
+            {                            
+                ViewData["isUpdate"] = false;               
+            }
             return View(models);
         }
 
@@ -46,6 +58,12 @@ namespace LibraryASPMVC.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _service.DeleteBookById(id);
+            return RedirectToAction("New", "Book");
+        }
+
+        public async Task<IActionResult> Update(int id, Book book)
+        {
+            await _service.UpdateBookById(id, book);
             return RedirectToAction("New", "Book");
         }
 

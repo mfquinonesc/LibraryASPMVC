@@ -16,7 +16,7 @@
                 <th class="has-text-centered">Índice</th>
                 <th class="has-text-centered">Autor</th>
                 <th class="has-text-centered">Nombre del libro</th>
-                @*  <th class="has-text-centered">Open</th> *@
+                <th class="has-text-centered">Actualizar</th>
                 <th class="has-text-centered">Eliminar</th>
             </tr>
         </thead>
@@ -28,11 +28,11 @@
                     <td class="has-text-centered">@index</td>
                     <td class="has-text-centered">@info.Name</td>
                     <td class="has-text-centered">@info.Title</td>
-                    @* <td class="has-text-centered">
-                        <a asp-controller="Book" asp-action="New">
-                        <i class="fa-solid fa-pen"></i>
+                    <td class="has-text-centered">
+                        <a asp-controller="Book" asp-action="New" asp-route-id="@info.Id">
+                            <i class="fa-solid fa-magnifying-glass"></i>
                         </a>
-                         </td> *@
+                    </td>
                     <td class="has-text-centered">
                         <a asp-controller="Book" asp-action="Delete" asp-route-id="@info.Id">
                             <i class="fa-solid fa-trash"></i>

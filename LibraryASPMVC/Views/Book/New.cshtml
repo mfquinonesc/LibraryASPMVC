@@ -3,51 +3,102 @@
 *@
 @model LibraryASPMVC.Models.AuthorBookModels;
 @{
+    bool isUpdate = ViewData["isUpdate"] != null ? (bool)ViewData["isUpdate"] : false;
     ViewData["Title"] = "Libros";
 }
 <section class="hero is-fullheight-with-header">
     <div class="hero-body">
         <div class="container has-text-centered">
-            <div class="columns is-8 is-variable is-multiline">
+            <div class="columns is-8 is-variable is-multiline">               
+                
+                @if (isUpdate)
+                {
+                    <form id="bookForm" class="column is-one-thirds has-text-left" action="@Url.Action("Update","Book",new {id = Model.Book.Id})">
+                        <h1 class="subtitle is-1 is-size-3">Libro</h1>
 
-                <form id="bookForm" class="column is-one-thirds has-text-left" method="post" action="Create">
-                    <h1 class="subtitle is-1 is-size-3">Crear Libro</h1>
+                        <div class="field">
+                            <label class="label">Título</label>
+                            <div class="control">
+                                <input id="title" name="Title" class="input" type="text" value="@Model.Book.Title">
+                            </div>
+                            <span id="titleError" class="help is-danger"></span>
+                        </div>
+                        <div class="field">
+                            <label class="label">Autor</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select id="author" name="AuthorId">
+                                        <option value="0">Seleccione un autor</option>
+                                        @foreach (var author in Model.Authors)
+                                        {
+                                            @if(author.AuthorId == Model.Book.AuthorId)
+                                            {
+                                                <option value="@author.AuthorId" selected>@author.Name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@author.AuthorId">@author.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <span id="authorError" class="help is-danger"></span>
+                        </div>
+                        <div class="field">
+                            <div class="field is-grouped">
+                                <div class="control">
+                                    <button type="submit" class="button is-link">Actualizar</button>
+                                </div>
+                                <div class="control">
+                                    <a asp-action="New" asp-controller="Book" asp-route-id="" type="submit" class="button">Cancelar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
 
-                    <div class="field">
-                        <label class="label">Título</label>
-                        <div class="control">
-                            <input id="title" name="Title" class="input" type="text">
-                        </div>
-                        <span id="titleError" class="help is-danger"></span>
-                    </div>
-                    <div class="field">
-                        <label class="label">Autor</label>
-                        <div class="control">
-                            <div class="select">
-                                <select id="author" name="AuthorId">
-                                    <option value="0">Seleccione un autor</option>
-                                    @foreach (var author in Model.Authors)
-                                    {
-                                        <option value="@author.AuthorId">@author.Name</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                        <span id="authorError" class="help is-danger"></span>
-                    </div>
-                    <div class="field">
-                        <div class="field is-grouped">
+                }
+                else
+                {
+                    <form id="bookForm" class="column is-one-thirds has-text-left" method="post" action="Create">
+                        <h1 class="subtitle is-1 is-size-3">Libro</h1>
+
+                        <div class="field">
+                            <label class="label">Título</label>
                             <div class="control">
-                                <button type="submit" class="button is-link">Crear</button>
+                                <input id="title" name="Title" class="input" type="text">
                             </div>
+                            <span id="titleError" class="help is-danger"></span>
+                        </div>
+                        <div class="field">
+                            <label class="label">Autor</label>
                             <div class="control">
-                                <a asp-action="Index" asp-controller="Home" type="submit" class="button">Cancelar</a>
+                                <div class="select">
+                                    <select id="author" name="AuthorId">
+                                        <option value="0">Seleccione un autor</option>
+                                        @foreach (var author in Model.Authors)
+                                        {
+                                            <option value="@author.AuthorId">@author.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <span id="authorError" class="help is-danger"></span>
+                        </div>
+                        <div class="field">
+                            <div class="field is-grouped">
+                                <div class="control">
+                                    <button type="submit" class="button is-link">Crear</button>
+                                </div>
+                                <div class="control">
+                                    <a asp-action="Index" asp-controller="Home" type="submit" class="button">Cancelar</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                }                       
+                
                 <div class="column is-two-thirds has-text-left">
-
                     <partial name="_booksTable" model="@Model.BookAuthorInfos" />
                 </div>
             </div>

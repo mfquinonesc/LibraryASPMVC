@@ -14,7 +14,7 @@
                 @if (isUpdate)
                 {
                     <form id="authorForm" class="column is-one-thirds has-text-left" action="@Url.Action("Update","Author",new {id = Model.Author.AuthorId})">
-                        <h1 class="subtitle is-1 is-size-3">Crear Autor</h1>
+                        <h1 class="subtitle is-1 is-size-3">Autor</h1>
 
                         <div class="field">
                             <label class="label">Nombre</label>
@@ -29,7 +29,7 @@
                                     <button type="submit" class="button is-link">Actualizar</button>
                                 </div>
                                 <div class="control">
-                                    <a asp-action="Index" asp-controller="Home" type="submit" class="button">Cancelar</a>
+                                    <a asp-action="New" asp-controller="Author" asp-route-id="" type="submit" class="button">Cancelar</a>
                                 </div>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                 else
                 {
                     <form id="authorForm" class="column is-one-thirds has-text-left" action="Create" method="post">
-                        <h1 class="subtitle is-1 is-size-3">Crear Autor</h1>
+                        <h1 class="subtitle is-1 is-size-3">Autor</h1>
 
                         <div class="field">
                             <label class="label">Nombre</label>
@@ -72,7 +72,7 @@
     <script>
         let isTouched = false;
         const name = document.getElementById('name');
-        const nameError = document.getElementById('nameError');
+        const nameError = document.getElementById('nameError');       
 
         name.addEventListener('input', () => {
             nameError.innerText = name.value.trim().length < 1 && isTouched ? 'Debe ingresar un nombre válido!' : '';
