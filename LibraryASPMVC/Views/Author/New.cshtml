@@ -72,14 +72,18 @@
     <script>
         let isTouched = false;
         const name = document.getElementById('name');
-        const nameError = document.getElementById('nameError');       
+        const nameError = document.getElementById('nameError');
+        const validateName = () => {
+            nameError.innerText = name.value.trim().length < 1 && isTouched ? 'Debe ingresar un nombre válido!' : '';
+        };
 
         name.addEventListener('input', () => {
-            nameError.innerText = name.value.trim().length < 1 && isTouched ? 'Debe ingresar un nombre válido!' : '';
+            validateName();
         });
 
         name.addEventListener('blur', () => {
             isTouched = true;
+            validateName();
         });
 
         document.getElementById('authorForm').addEventListener('submit', function (event) {

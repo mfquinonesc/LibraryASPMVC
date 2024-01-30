@@ -108,23 +108,36 @@
 
 @section Scripts {
     <script>
-
+        let isTouchedAuthor = false;
         let isTouched = false;
         const title = document.getElementById('title');
         const titleError = document.getElementById('titleError');
         const author = document.getElementById('author');
         const authorError = document.getElementById('authorError');
+        const validateTitle = () => {
+            titleError.innerText = title.value.trim().length < 1 && isTouched ? 'Debe ingresar un título válido!' : '';
+        };
+
+        const validateAuthor = () => {
+            authorError.innerText = author.selectedIndex == 0 && isTouchedAuthor ? 'Debe seleccionar algún autor!' : '';
+        };
 
         title.addEventListener('input', () => {
-            titleError.innerText = title.value.trim().length < 1 && isTouched ? 'Debe ingresar un título válido!' : '';
+            validateTitle();
         });
 
         title.addEventListener('blur', () => {
-            isTouched = true;           
+            isTouched = true; 
+            validateTitle();          
+        });
+
+        author.addEventListener('blur',() => {
+            isTouchedAuthor = true;
+            validateAuthor();
         });
 
         author.addEventListener('change', () => {
-            authorError.innerText = author.selectedIndex == 0 ? 'Debe seleccionar algún autor!' : '';
+            validateAuthor();
         });
 
         document.getElementById('bookForm').addEventListener('submit', function (event) {
